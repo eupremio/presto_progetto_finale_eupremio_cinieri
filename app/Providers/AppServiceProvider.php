@@ -1,24 +1,27 @@
 <?php
 
-namespace App\Providers;
+namespace App\Models;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class AppServiceProvider extends ServiceProvider
+class Article extends Model
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
+    protected $fillable = [
+        'title',
+        'description',
+        'price',
+        'category_id',
+        'user_id',
+    ];
+
+    public function user(): BelongsTo
     {
-        //
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
+    public function category(): BelongsTo
     {
-        //
+        return $this->belongsTo(Category::class);
     }
 }
