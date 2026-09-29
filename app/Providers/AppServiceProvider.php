@@ -1,27 +1,26 @@
 <?php
 
-namespace App\Models;
+namespace App\Providers;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Category;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
-class Article extends Model
+class AppServiceProvider extends ServiceProvider
 {
-    protected $fillable = [
-        'title',
-        'description',
-        'price',
-        'category_id',
-        'user_id',
-    ];
-
-    public function user(): BelongsTo
+    public function register(): void
     {
-        return $this->belongsTo(User::class);
+        //
     }
 
-    public function category(): BelongsTo
+    public function boot(): void
     {
-        return $this->belongsTo(Category::class);
+        Paginator::useBootstrapFive();
+
+        if (Schema::hasTable('categories')) {
+            View::share('categories', Category::orderBy('name')->get());
+        }
     }
 }

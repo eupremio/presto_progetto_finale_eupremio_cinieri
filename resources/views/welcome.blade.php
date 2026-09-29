@@ -1,6 +1,7 @@
 <x-layout>
 
     <div class="container">
+
         <div class="row min-vh-100 align-items-center">
             <div class="col-12 text-center">
 
@@ -20,6 +21,33 @@
 
             </div>
         </div>
+
+        <div class="row justify-content-center align-items-center py-5">
+
+            <div class="col-12">
+                <h2 class="text-center">
+                    I nostri annunci
+                </h2>
+            </div>
+
+            @forelse ($articles as $article)
+
+                <div class="col-12 col-md-4">
+                    <x-card :article="$article" />
+                </div>
+
+            @empty
+
+                <div class="col-12">
+                    <h3 class="text-center">
+                        Non sono ancora stati creati articoli
+                    </h3>
+                </div>
+
+            @endforelse
+
+        </div>
+
     </div>
 
 </x-layout>
