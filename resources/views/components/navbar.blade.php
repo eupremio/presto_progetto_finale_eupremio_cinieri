@@ -19,7 +19,9 @@
             <ul class="navbar-nav me-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('homepage') }}">Home</a>
+                    <a class="nav-link" href="{{ route('homepage') }}">
+                        Home
+                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -94,6 +96,25 @@
                 @endauth
 
             </ul>
+
+            <form
+                class="d-flex me-3"
+                role="search"
+                action="{{ route('search.article') }}"
+                method="GET"
+            >
+                <input
+                    class="form-control me-2"
+                    type="search"
+                    name="query"
+                    placeholder="Cerca"
+                    aria-label="Search"
+                >
+
+                <button class="btn btn-outline-success" type="submit">
+                    Cerca
+                </button>
+            </form>
 
             <ul class="navbar-nav">
 
