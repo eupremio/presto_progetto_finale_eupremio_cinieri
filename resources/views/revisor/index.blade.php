@@ -1,0 +1,109 @@
+<x-layout>
+
+    <div class="container py-5">
+
+        <div class="row">
+            <div class="col-12">
+
+                @if (session()->has('message'))
+                    <div class="alert alert-success text-center">
+                        {{ session('message') }}
+                    </div>
+                @endif
+
+            </div>
+        </div>
+
+        @if ($article_to_check)
+
+            <div class="row justify-content-center">
+
+                <div class="col-12 col-md-8">
+
+                    <h1 class="text-center mb-5">
+                        Articolo da revisionare
+                    </h1>
+
+                    <div class="card">
+
+                        <img
+                            src="https://picsum.photos/800/400"
+                            class="card-img-top"
+                            alt="Immagine articolo"
+                        >
+
+                        <div class="card-body">
+
+                            <h2>
+                                {{ $article_to_check->title }}
+                            </h2>
+
+                            <p>
+                                {{ $article_to_check->description }}
+                            </p>
+
+                            <p>
+                                Prezzo: {{ $article_to_check->price }} €
+                            </p>
+
+                            <p>
+                                Categoria: {{ $article_to_check->category->name }}
+                            </p>
+
+                            <p>
+                                Autore: {{ $article_to_check->user->name }}
+                            </p>
+
+                            <div class="d-flex justify-content-between">
+
+                                <form
+                                    action="{{ route('reject.article', $article_to_check) }}"
+                                    method="POST"
+                                >
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <button class="btn btn-danger" type="submit">
+                                        Rifiuta
+                                    </button>
+                                </form>
+
+                                <form
+                                    action="{{ route('accept.article', $article_to_check) }}"
+                                    method="POST"
+                                >
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <button class="btn btn-success" type="submit">
+                                        Accetta
+                                    </button>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        @else
+
+            <div class="row">
+                <div class="col-12">
+
+                    <h1 class="text-center">
+                        Non ci sono articoli da revisionare
+                    </h1>
+
+                </div>
+            </div>
+
+        @endif
+
+    </div>
+
+</x-layout>

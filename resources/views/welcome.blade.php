@@ -2,6 +2,16 @@
 
     <div class="container">
 
+        @if (session()->has('message'))
+            <div class="row justify-content-center pt-4">
+                <div class="col-12 col-md-8">
+                    <div class="alert alert-success text-center">
+                        {{ session('message') }}
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="row min-vh-100 align-items-center">
             <div class="col-12 text-center">
 

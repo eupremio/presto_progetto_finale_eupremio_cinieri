@@ -19,9 +19,7 @@
             <ul class="navbar-nav me-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('homepage') }}">
-                        Home
-                    </a>
+                    <a class="nav-link" href="{{ route('homepage') }}">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -30,12 +28,69 @@
                     </a>
                 </li>
 
+                <li class="nav-item dropdown">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                    >
+                        Categorie
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        @foreach ($categories as $category)
+
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="{{ route('article.byCategory', $category) }}"
+                                >
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+
+                            @if (!$loop->last)
+                                <li><hr class="dropdown-divider"></li>
+                            @endif
+
+                        @endforeach
+
+                    </ul>
+                </li>
+
                 @auth
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('create.article') }}">
                             Inserisci articolo
                         </a>
                     </li>
+
+                    @if (Auth::user()->is_revisor)
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('revisor.index') }}">
+                                Revisore
+
+                                <span class="badge rounded-pill bg-danger">
+                                    {{ \App\Models\Article::toBeRevisedCount() }}
+                                </span>
+                            </a>
+                        </li>
+
+                    @else
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('become.revisor') }}">
+                                Diventa revisore
+                            </a>
+                        </li>
+
+                    @endif
+
                 @endauth
 
             </ul>
@@ -79,5 +134,6 @@
             </ul>
 
         </div>
+
     </div>
 </nav>
