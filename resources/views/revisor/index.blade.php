@@ -26,11 +26,61 @@
 
                     <div class="card">
 
-                        <img
-                            src="https://picsum.photos/800/400"
-                            class="card-img-top"
-                            alt="Immagine articolo"
-                        >
+                        <div id="revisorCarousel" class="carousel slide">
+
+                            <div class="carousel-inner">
+
+                                @forelse ($article_to_check->images as $image)
+
+                                    <div class="carousel-item @if($loop->first) active @endif">
+
+                                        <img
+                                            src="{{ Storage::url($image->path) }}"
+                                            class="d-block w-100"
+                                            alt="Immagine articolo {{ $article_to_check->title }}"
+                                        >
+
+                                    </div>
+
+                                @empty
+
+                                    <div class="carousel-item active">
+
+                                        <img
+                                            src="https://picsum.photos/800/400"
+                                            class="d-block w-100"
+                                            alt="Immagine articolo {{ $article_to_check->title }}"
+                                        >
+
+                                    </div>
+
+                                @endforelse
+
+                            </div>
+
+                            @if ($article_to_check->images->count() > 1)
+
+                                <button
+                                    class="carousel-control-prev"
+                                    type="button"
+                                    data-bs-target="#revisorCarousel"
+                                    data-bs-slide="prev"
+                                >
+                                    <span class="carousel-control-prev-icon"></span>
+                                </button>
+
+                                <button
+                                    class="carousel-control-next"
+                                    type="button"
+                                    data-bs-target="#revisorCarousel"
+                                    data-bs-slide="next"
+                                >
+                                    <span class="carousel-control-next-icon"></span>
+                                </button>
+
+                            @endif
+
+                        </div>
 
                         <div class="card-body">
 

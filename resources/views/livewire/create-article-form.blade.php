@@ -76,6 +76,63 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+
+            <label for="images" class="form-label">
+                Immagini
+            </label>
+
+            <input
+                type="file"
+                id="images"
+                class="form-control"
+                wire:model="temporary_images"
+                multiple
+            >
+
+            @error('temporary_images.*')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+            @error('temporary_images')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+
+        @if (!empty($images))
+
+            <div class="row mb-3">
+
+                @foreach ($images as $key => $image)
+
+                    <div
+                        class="col-6 col-md-3 text-center mb-3"
+                        wire:key="{{ $key }}"
+                    >
+
+                        <img
+                            src="{{ $image->temporaryUrl() }}"
+                            class="img-fluid img-thumbnail"
+                            alt="Anteprima immagine"
+                        >
+
+                        <button
+                            type="button"
+                            class="btn btn-danger mt-2"
+                            wire:click="removeImage({{ $key }})"
+                        >
+                            Rimuovi
+                        </button>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        @endif
+
         <button type="submit" class="btn btn-primary">
             Crea articolo
         </button>

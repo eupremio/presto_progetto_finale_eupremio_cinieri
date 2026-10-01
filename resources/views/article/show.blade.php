@@ -10,49 +10,55 @@
 
                     <div class="carousel-inner">
 
-                        <div class="carousel-item active">
-                            <img
-                                src="https://picsum.photos/800/500?random=1"
-                                class="d-block w-100"
-                                alt="Immagine articolo"
-                            >
-                        </div>
+                        @forelse ($article->images as $image)
 
-                        <div class="carousel-item">
-                            <img
-                                src="https://picsum.photos/800/500?random=2"
-                                class="d-block w-100"
-                                alt="Immagine articolo"
-                            >
-                        </div>
+                            <div class="carousel-item @if($loop->first) active @endif">
 
-                        <div class="carousel-item">
-                            <img
-                                src="https://picsum.photos/800/500?random=3"
-                                class="d-block w-100"
-                                alt="Immagine articolo"
-                            >
-                        </div>
+                                <img
+                                    src="{{ Storage::url($image->path) }}"
+                                    class="d-block w-100"
+                                    alt="Immagine articolo {{ $article->title }}"
+                                >
+
+                            </div>
+
+                        @empty
+
+                            <div class="carousel-item active">
+
+                                <img
+                                    src="https://picsum.photos/800/500"
+                                    class="d-block w-100"
+                                    alt="Immagine articolo {{ $article->title }}"
+                                >
+
+                            </div>
+
+                        @endforelse
 
                     </div>
 
-                    <button
-                        class="carousel-control-prev"
-                        type="button"
-                        data-bs-target="#articleCarousel"
-                        data-bs-slide="prev"
-                    >
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
+                    @if ($article->images->count() > 1)
 
-                    <button
-                        class="carousel-control-next"
-                        type="button"
-                        data-bs-target="#articleCarousel"
-                        data-bs-slide="next"
-                    >
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
+                        <button
+                            class="carousel-control-prev"
+                            type="button"
+                            data-bs-target="#articleCarousel"
+                            data-bs-slide="prev"
+                        >
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+
+                        <button
+                            class="carousel-control-next"
+                            type="button"
+                            data-bs-target="#articleCarousel"
+                            data-bs-slide="next"
+                        >
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+
+                    @endif
 
                 </div>
 
