@@ -104,6 +104,47 @@
                                 Autore: {{ $article_to_check->user->name }}
                             </p>
 
+                            @foreach ($article_to_check->images as $image)
+
+                                <div class="card my-3">
+
+                                    <div class="card-body">
+
+                                        <h5 class="card-title">
+                                            Analisi immagine {{ $loop->iteration }}
+                                        </h5>
+
+                                        <p>
+                                            <i class="{{ $image->adult }}"></i>
+                                            Adult
+                                        </p>
+
+                                        <p>
+                                            <i class="{{ $image->spoof }}"></i>
+                                            Spoof
+                                        </p>
+
+                                        <p>
+                                            <i class="{{ $image->medical }}"></i>
+                                            Medical
+                                        </p>
+
+                                        <p>
+                                            <i class="{{ $image->violence }}"></i>
+                                            Violence
+                                        </p>
+
+                                        <p>
+                                            <i class="{{ $image->racy }}"></i>
+                                            Racy
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            @endforeach
+
                             <div class="d-flex justify-content-between">
 
                                 <form
