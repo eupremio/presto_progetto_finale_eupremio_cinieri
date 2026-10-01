@@ -4,8 +4,10 @@ namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Spatie\Image\Enums\AlignPosition;
 use Spatie\Image\Enums\CropPosition;
 use Spatie\Image\Enums\ImageDriver;
+use Spatie\Image\Enums\Fit;
 use Spatie\Image\Image;
 
 class ResizeImage implements ShouldQueue
@@ -37,6 +39,15 @@ class ResizeImage implements ShouldQueue
         Image::useImageDriver(ImageDriver::Gd)
             ->load($srcPath)
             ->crop($w, $h, CropPosition::Center)
+            ->watermark(
+                base_path('resources/img/watermark-presto.png'),
+                AlignPosition::BottomRight,
+                paddingX: 10,
+                paddingY: 10,
+                width: 100,
+                height: 50,
+                fit: Fit::Contain
+            )
             ->save($destPath);
     }
 }
