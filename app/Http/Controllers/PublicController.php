@@ -30,4 +30,11 @@ class PublicController extends Controller
             'query' => $query,
         ]);
     }
+
+    public function setLanguage($lang)
+    {
+        session()->put('locale', $lang);
+
+        return redirect()->back();
+    }
 }

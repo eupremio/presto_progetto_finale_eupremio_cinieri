@@ -26,7 +26,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('article.index') }}">
-                        Tutti gli articoli
+                        {{ __('ui.allArticles') }}
                     </a>
                 </li>
 
@@ -38,7 +38,7 @@
                         role="button"
                         data-bs-toggle="dropdown"
                     >
-                        Categorie
+                        {{ __('ui.categories') }}
                     </a>
 
                     <ul class="dropdown-menu">
@@ -50,7 +50,7 @@
                                     class="dropdown-item"
                                     href="{{ route('article.byCategory', $category) }}"
                                 >
-                                    {{ $category->name }}
+                                    {{ __('ui.' . $category->name) }}
                                 </a>
                             </li>
 
@@ -67,7 +67,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('create.article') }}">
-                            Inserisci articolo
+                            {{ __('ui.insertArticle') }}
                         </a>
                     </li>
 
@@ -75,7 +75,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('revisor.index') }}">
-                                Revisore
+                                {{ __('ui.revisor') }}
 
                                 <span class="badge rounded-pill bg-danger">
                                     {{ \App\Models\Article::toBeRevisedCount() }}
@@ -87,7 +87,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('become.revisor') }}">
-                                Diventa revisore
+                                {{ __('ui.becomeRevisor') }}
                             </a>
                         </li>
 
@@ -96,6 +96,12 @@
                 @endauth
 
             </ul>
+
+            <div class="d-flex align-items-center">
+                <x-_locale lang="it" />
+                <x-_locale lang="uk" />
+                <x-_locale lang="es" />
+            </div>
 
             <form
                 class="d-flex me-3"
@@ -107,12 +113,12 @@
                     class="form-control me-2"
                     type="search"
                     name="query"
-                    placeholder="Cerca"
+                    placeholder="{{ __('ui.search') }}"
                     aria-label="Search"
                 >
 
                 <button class="btn btn-outline-success" type="submit">
-                    Cerca
+                    {{ __('ui.search') }}
                 </button>
             </form>
 
@@ -122,7 +128,7 @@
 
                     <li class="nav-item">
                         <span class="nav-link">
-                            Ciao, {{ Auth::user()->name }}
+                            {{ __('ui.hello') }}, {{ Auth::user()->name }}
                         </span>
                     </li>
 
@@ -146,7 +152,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">
-                            Registrati
+                            {{ __('ui.register') }}
                         </a>
                     </li>
 

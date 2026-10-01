@@ -17,15 +17,15 @@
 
                 <h1>Presto.it</h1>
 
-                <p>Compra e vendi quello che vuoi.</p>
+                <p>{{ __('ui.subtitle') }}</p>
 
                 @auth
                     <a href="{{ route('create.article') }}" class="btn btn-primary">
-                        Inserisci articolo
+                        {{ __('ui.insertArticle') }}
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-primary">
-                        Accedi per inserire un articolo
+                        {{ __('ui.loginToInsert') }}
                     </a>
                 @endauth
 
@@ -36,7 +36,7 @@
 
             <div class="col-12">
                 <h2 class="text-center">
-                    I nostri annunci
+                    {{ __('ui.ourArticles') }}
                 </h2>
             </div>
 
@@ -50,7 +50,7 @@
 
                 <div class="col-12">
                     <h3 class="text-center">
-                        Non sono ancora stati creati articoli
+                        {{ __('ui.noArticles') }}
                     </h3>
                 </div>
 

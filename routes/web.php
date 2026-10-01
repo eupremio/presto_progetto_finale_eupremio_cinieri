@@ -32,3 +32,6 @@ Route::middleware(['auth', 'isRevisor'])->group(function () {
 
     Route::patch('/rifiuta/articolo/{article}', [RevisorController::class, 'rejectArticle'])->name('reject.article');
 });
+
+Route::post('/lingua/{lang}', [PublicController::class, 'setLanguage'])
+    ->name('setLocale');
