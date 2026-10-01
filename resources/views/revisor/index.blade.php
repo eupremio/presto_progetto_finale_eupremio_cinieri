@@ -35,7 +35,7 @@
                                     <div class="carousel-item @if($loop->first) active @endif">
 
                                         <img
-                                            src="{{ Storage::url($image->path) }}"
+                                            src="{{ $image->getUrl(300, 300) }}"
                                             class="d-block w-100"
                                             alt="Immagine articolo {{ $article_to_check->title }}"
                                         >
