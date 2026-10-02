@@ -139,6 +139,24 @@
                                             Racy
                                         </p>
 
+                                        @if ($image->labels)
+
+                                            <h6 class="mt-4">
+                                                Etichette
+                                            </h6>
+
+                                            <div>
+                                                @foreach ($image->labels as $label)
+
+                                                    <span class="badge bg-secondary me-1 mb-1">
+                                                        {{ $label }}
+                                                    </span>
+
+                                                @endforeach
+                                            </div>
+
+                                        @endif
+
                                     </div>
 
                                 </div>
