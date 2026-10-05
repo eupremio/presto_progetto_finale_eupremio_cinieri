@@ -9,7 +9,6 @@ use Google\Cloud\Vision\V1\Client\ImageAnnotatorClient;
 use Google\Cloud\Vision\V1\Feature;
 use Google\Cloud\Vision\V1\Feature\Type;
 use Google\Cloud\Vision\V1\Image as VisionImage;
-use Google\Cloud\Vision\V1\Vertex;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Spatie\Image\Enums\ImageDriver;
@@ -22,10 +21,14 @@ class RemoveFaces implements ShouldQueue
     use Queueable;
 
     private $article_image_id;
+    private $w;
+    private $h;
 
-    public function __construct($article_image_id)
+    public function __construct($article_image_id, $w, $h)
     {
         $this->article_image_id = $article_image_id;
+        $this->w = $w;
+        $this->h = $h;
     }
 
     public function handle(): void
@@ -36,7 +39,13 @@ class RemoveFaces implements ShouldQueue
             return;
         }
 
-        $src = storage_path('app/public/' . $i->path);
+        $path = dirname($i->path);
+        $fileName = basename($i->path);
+
+        $src = storage_path(
+            'app/public/' . $path . "/crop_{$this->w}x{$this->h}_" . $fileName
+        );
+
         $image = file_get_contents($src);
 
         $googleVisionClient = new ImageAnnotatorClient([
@@ -74,7 +83,8 @@ class RemoveFaces implements ShouldQueue
             $w = $bounds[2][0] - $bounds[0][0];
             $h = $bounds[2][1] - $bounds[0][1];
 
-            $image = SpatieImage::useImageDriver(ImageDriver::Gd)->load($src);
+            $image = SpatieImage::useImageDriver(ImageDriver::Gd)
+                ->load($src);
 
             $image->watermark(
                 base_path('resources/img/face.png'),

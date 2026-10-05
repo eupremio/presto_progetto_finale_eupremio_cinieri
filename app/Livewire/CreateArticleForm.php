@@ -9,6 +9,7 @@ use App\Jobs\RemoveFaces;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\File;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -78,13 +79,14 @@ class CreateArticleForm extends Component
                     'path' => $image->store($newFileName, 'public'),
                 ]);
 
-                dispatch(new ResizeImage($newImage->path, 300, 300));
+                Bus::chain([
+                    new ResizeImage($newImage->path, 300, 300),
+                    new RemoveFaces($newImage->id, 300, 300),
+                ])->dispatch();
 
                 dispatch(new GoogleVisionSafeSearch($newImage->id));
 
                 dispatch(new GoogleVisionLabelImage($newImage->id));
-
-                dispatch(new RemoveFaces($newImage->id));
             }
         }
 
